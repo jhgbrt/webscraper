@@ -82,17 +82,24 @@ The application is designed with testability in mind:
 ## Testing
 
 The project includes comprehensive unit tests covering:
-- URL filtering (internal vs external links)
-- Visited URL tracking to prevent duplicates
-- URL to file path conversion
-- Directory structure preservation
-- Fragment identifier handling
+- **Markdown conversion**: Verifies HTML elements (headings, lists, links, bold, italic, code blocks, etc.) are correctly converted to Markdown format
+- **URL filtering**: Ensures only internal links are followed (external links ignored)
+- **Visited URL tracking**: Prevents duplicate downloads
+- **URL to file path conversion**: Validates proper path generation
+- **Directory structure preservation**: Maintains folder hierarchy
+- **Fragment identifier handling**: Properly handles URL fragments
 
 Run tests with:
 ```bash
 cd WebScraper.Tests
 dotnet test
 ```
+
+The test suite includes 40 tests across three test classes:
+- `MarkdownConversionTests`: 13 tests for HTML to Markdown conversion
+- `WebScraperServiceTests`: 9 tests for scraping logic and markdown output
+- `FilePathGeneratorTests`: 10 tests for path generation
+- `UrlHelperTests`: 8 tests for URL manipulation
 
 ## Requirements
 
