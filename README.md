@@ -59,15 +59,40 @@ dotnet run -- http://localhost:8080
 4. Extracts all links from the page
 5. Follows only internal links (same domain)
 6. Tracks visited URLs to prevent infinite loops
-7. Saves each page as a `.md` file with a sanitized filename
+7. Saves each page as a `.md` file preserving the directory structure
 8. Repeats until all internal pages have been visited
 
 ## Output
 
-Each downloaded page is saved as a Markdown file with a filename based on its URL path:
+Each downloaded page is saved as a Markdown file preserving the directory structure:
 - `https://example.com/` → `index.md`
 - `https://example.com/page1.html` → `page1.md`
-- `https://example.com/docs/guide.html` → `docs_guide.md`
+- `https://example.com/docs/guide.html` → `docs/guide.md`
+- `https://example.com/blog/2024/article.html` → `blog/2024/article.md`
+
+## Architecture
+
+The application is designed with testability in mind:
+
+- **`WebScraperService`**: Core scraping logic with dependency injection support
+- **`UrlHelper`**: Utilities for URL validation and manipulation
+- **`FilePathGenerator`**: Converts URLs to file paths with proper directory structure
+- **`Program.cs`**: CLI interface using Spectre.Console for beautiful output
+
+## Testing
+
+The project includes comprehensive unit tests covering:
+- URL filtering (internal vs external links)
+- Visited URL tracking to prevent duplicates
+- URL to file path conversion
+- Directory structure preservation
+- Fragment identifier handling
+
+Run tests with:
+```bash
+cd WebScraper.Tests
+dotnet test
+```
 
 ## Requirements
 
